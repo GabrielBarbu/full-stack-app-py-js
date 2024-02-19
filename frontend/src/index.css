@@ -1,3 +1,14 @@
-input, button, label {
+input, label {
   margin-top: 10px;
+}
+
+body {
+  background-color: hsl(0, 2%, 10%);
+}
+
+button {
+  padding: 2.5px 3px;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: bold;
 }

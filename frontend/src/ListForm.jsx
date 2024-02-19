@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-empty-pattern */
 import { useState } from "react";
+import "./App.css";
 
 const ListForm = ({ existingList = {}, updateCallback }) => {
     const [text, setText] = useState(existingList.text || "");
@@ -41,7 +42,7 @@ const ListForm = ({ existingList = {}, updateCallback }) => {
                     onChange={(e) => setText(e.target.value)}
                 />
             </div>
-            <button type="submit">{updating ? "Update" : "Create"}</button>
+            <button className="submit" type="submit">{updating ? "Update" : "Create"}</button>
         </form>
     );
 };

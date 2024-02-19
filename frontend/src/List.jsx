@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
+import "./App.css";
 
 const List = ({ lists, updateList, updateCallback }) => {
     const onDelete = async (id) => {
@@ -33,8 +34,8 @@ const List = ({ lists, updateList, updateCallback }) => {
             <tr key={list.id}>
               <td>{list.text}</td>
               <td>
-                <button onClick={() => updateList(list)}>Update</button>
-                <button onClick={() => onDelete(list.id)}>Delete</button>
+                <button className="update" onClick={() => updateList(list)}>Update</button>
+                <button className="delete" onClick={() => onDelete(list.id)}>Delete</button>
               </td>
             </tr>
           ))}

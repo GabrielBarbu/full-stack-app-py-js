@@ -43,7 +43,7 @@ function App() {
   return (
     <>
       <List lists={lists} updateList={openEditModal} updateCallback={onUpdate}/>
-      <button onClick={openCreateModal}>Create New List</button>
+      <button className="create" onClick={openCreateModal}>Create New List</button>
       {isModalOpen && (
         <div className="modal">
           <div className="modal-content">
