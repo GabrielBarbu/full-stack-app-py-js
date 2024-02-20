@@ -1,0 +1,1 @@
+To run the backend, simply type "python main.py" in the terminal

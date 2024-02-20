@@ -4,15 +4,25 @@ import "./App.css";
 import List from "./List";
 import ListForm from "./ListForm";
 
+/**
+ * Represents the main component of the application.
+ * @returns {JSX.Element} The rendered App component.
+ */
 function App() {
+  // State variables
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [lists, setLists] = useState([]);
   const [currentList, setCurrentList] = useState({});
 
+  // Fetch lists from the server on component mount
   useEffect(() => {
     fetchLists();
   }, []);
 
+  /**
+   * Fetches the lists from the server.
+   * @returns {Promise<void>} A promise that resolves when the lists are fetched.
+   */
   const fetchLists = async () => {
     const response = await fetch("http://127.0.0.1:5000/lists");
     const data = await response.json();
@@ -20,21 +30,39 @@ function App() {
     console.log(data.lists);
   }
 
+  /**
+   * Closes the modal and resets the current list.
+   * @returns {void}
+   */
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentList({});
   };
 
+  /**
+   * Opens the create modal if it is not already open.
+   * @returns {void}
+   */
   const openCreateModal = () => {
     if (!isModalOpen) setIsModalOpen(true);
   };
 
+  /**
+   * Opens the edit modal with the specified list.
+   * @param {Object} list - The list to be edited.
+   * @returns {void}
+   */
   const openEditModal = (list) => {
     if (isModalOpen) return;
     setCurrentList(list);
     setIsModalOpen(true);
   };
 
+  /**
+   * Callback function to be called after updating a list.
+   * Closes the modal and fetches the updated lists.
+   * @returns {void}
+   */
   const onUpdate = () => {
     closeModal();
     fetchLists();

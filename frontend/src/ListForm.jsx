@@ -3,11 +3,13 @@
 import { useState } from "react";
 import "./App.css";
 
+// Define a functional component called ListForm
 const ListForm = ({ existingList = {}, updateCallback }) => {
     const [text, setText] = useState(existingList.text || "");
 
     const updating = Object.entries(existingList).length !== 0
 
+    // Define an async function called onSubmit to handle form submission
     const onSubmit = async (e) => {
         e.preventDefault()
 
@@ -31,6 +33,7 @@ const ListForm = ({ existingList = {}, updateCallback }) => {
         }
     }
 
+    // Render the form component
     return (
         <form onSubmit={onSubmit}>
             <div>

@@ -1,14 +1,16 @@
+# Import modules
 from flask import request, jsonify
-from config import app, db
-from models import Contact
-from models import List
+from config import app, db # Import the app and db objects from the config module
+from models import List # Import the List model from the models module
 
+# Route to get all lists
 @app.route("/lists", methods=["GET"])
 def get_lists():
     lists = List.query.all()
     json_lists = list(map(lambda x: x.to_json(), lists))
     return jsonify({"lists": json_lists})
 
+# Route to create a new list
 @app.route("/create_list", methods=["POST"])
 def create_list():
     text = request.json.get("text")
@@ -25,6 +27,7 @@ def create_list():
     
     return jsonify({"message": "List created successfully!"}), 201
 
+# Route to update an existing list
 @app.route("/update_list/<int:list_id>", methods=["PATCH"])
 def update_list(list_id):
     list = List.query.get(list_id)
@@ -39,6 +42,7 @@ def update_list(list_id):
     
     return jsonify({"message": "List updated successfully!"}), 200
 
+# Route to delete a list
 @app.route("/delete_list/<int:list_id>", methods=["DELETE"])
 def delete_list(list_id):
     list = List.query.get(list_id)
@@ -51,60 +55,8 @@ def delete_list(list_id):
     
     return jsonify({"message": "List deleted successfully!"}), 200
 
-@app.route("/contacts", methods=["GET"])
-def get_contacts():
-    contacts = Contact.query.all()
-    json_contacts = list(map(lambda x: x.to_json(), contacts))
-    return jsonify({"contacts": json_contacts})
-
-@app.route("/create_contact", methods=["POST"])
-def create_contact():
-    first_name = request.json.get("firstName")
-    last_name = request.json.get("lastName")
-    email = request.json.get("email")
+if __name__ == "__main__": # Run the application
+    with app.app_context(): 
+        db.create_all() # Create the database tables
     
-    if not first_name or not last_name or not email:
-        return jsonify({"message": "You must include a first name, last name, and email"}), 400
-    
-    new_contact = Contact(first_name=first_name, last_name=last_name, email=email)
-    try:
-        db.session.add(new_contact)
-        db.session.commit()
-    except Exception as e:
-        return jsonify({"message": f"An error occurred: {str(e)}"}), 400
-    
-    return jsonify({"message": "User created successfully!"}), 201
-
-@app.route("/update_contact/<int:user_id>", methods=["PATCH"])
-def update_contact(user_id):
-    contact = Contact.query.get(user_id)
-    
-    if not contact:
-        return jsonify({"message": "User not found"}), 404
-    
-    data = request.json
-    contact.first_name = data.get("firstName", contact.first_name)
-    contact.last_name = data.get("lastName", contact.last_name)
-    contact.email = data.get("email", contact.email)
-    
-    db.session.commit()
-    
-    return jsonify({"message": "User updated successfully!"}), 200
-
-@app.route("/delete_contact/<int:user_id>", methods=["DELETE"])
-def delete_contact(user_id):
-    contact = Contact.query.get(user_id)
-    
-    if not contact:
-        return jsonify({"message": "User not found"}), 404
-    
-    db.session.delete(contact)
-    db.session.commit()
-    
-    return jsonify({"message": "User deleted successfully!"}), 200
-
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-    
-    app.run(debug=True)
+    app.run(debug=True) # Run the application in debug mode
