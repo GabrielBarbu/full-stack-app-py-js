@@ -28,13 +28,19 @@
 h2 {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
-  padding-left: 9px;
+  padding-left: 0px;
 }
 
 tr {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 20px;
+}
+
+th {
+  position: fixed;
+  top: 50px;
+  left: 9px;
 }
 
 label {
@@ -53,9 +59,17 @@ input {
 .delete:hover {
   background-color: red;
   color: white;
+  cursor: pointer;
 }
 
-.create:hover, .submit:hover, .update:hover {
+.create:hover,
+.submit:hover,
+.update:hover {
   background-color: green;
   color: white;
+  cursor: pointer;
+}
+
+.close:hover {
+  cursor: pointer;
 }
