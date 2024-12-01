@@ -10,7 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Configure the database URI and disable track modifications
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db" # "mydatabase.db can be changed to whatever you like as long as it ends in .db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase1.db" # "mydatabase1.db can be changed to whatever you like as long as it ends in .db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Create SQLAlchemy database instance

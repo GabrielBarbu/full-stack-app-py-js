@@ -10,20 +10,23 @@ const List = ({ lists, updateList, updateCallback }) => {
   const onDelete = async (id) => {
     try {
       const options = {
-        method: "DELETE"
-      }
+        method: "DELETE",
+      };
       // Send a DELETE request to the server
-      const response = await fetch(`http://127.0.0.1:5000/delete_list/${id}`, options)
+      const response = await fetch(
+        `http://127.0.0.1:5000/delete_list/${id}`,
+        options
+      );
       if (response.status === 200) {
         // If the delete operation is successful, update the list
-        updateCallback()
+        updateCallback();
       } else {
-        console.error("Failed to delete")
+        console.error("Failed to delete");
       }
     } catch (error) {
-      alert(error)
+      alert(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -31,19 +34,23 @@ const List = ({ lists, updateList, updateCallback }) => {
       <table>
         <thead>
           <tr>
-            <th>Text</th>
+            <th>Titles</th>
           </tr>
         </thead>
         <tbody>
           {/* Map through the lists array and render each list item */}
           {lists.map((list) => (
             <tr key={list.id}>
-              <td>{list.text}</td>
+              <td>{list.title}</td>
               <td>
                 {/* Button to update the list */}
-                <button className="update" onClick={() => updateList(list)}>Update</button>
+                <button className="update" onClick={() => updateList(list)}>
+                  Update
+                </button>
                 {/* Button to delete the list */}
-                <button className="delete" onClick={() => onDelete(list.id)}>Delete</button>
+                <button className="delete" onClick={() => onDelete(list.id)}>
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

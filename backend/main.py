@@ -14,11 +14,14 @@ def get_lists():
 @app.route("/create_list", methods=["POST"])
 def create_list():
     text = request.json.get("text")
+    title = request.json.get("title")
     
-    if not text:
+    if not title:
+        return jsonify({"message": "You must include a title"}), 400
+    elif not text:
         return jsonify({"message": "You must include some text"}), 400
     
-    new_list = List(text=text)
+    new_list = List(text=text, title=title)
     try:
         db.session.add(new_list)
         db.session.commit()
@@ -37,6 +40,7 @@ def update_list(list_id):
     
     data = request.json
     list.text = data.get("text", list.text)
+    list.title = data.get("title", list.title)
     
     db.session.commit()
     
